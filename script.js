@@ -16,16 +16,56 @@
 var startbutton = document.querySelector("#start");
 
 startbutton.addEventListener("click", function() {
-    var counter = 5;
-    setInterval(function() {
-      counter--;
-      if (counter >= 0) {
-        p = document.getElementById("timer");
-        p.innerHTML = counter;
-      }
-      if (counter === 0) {
-          p.innerHTML = "sorry out of time";
-          clearInterval(counter);
-      }
-    }, 1000);
+    timeStart();
+    questions();
   });
+
+
+function timeStart(){
+  var counter = 5;
+  setInterval(function() {
+    counter--;
+    if (counter >= 0) {
+      p = document.getElementById("timer");
+      p.innerHTML = counter;
+    }
+    if (counter === 0) {
+        p.innerHTML = "sorry out of time";
+        clearInterval(counter);
+    }
+  }, 1000);
+}
+
+var quizbox=
+  [
+    {
+      question: "Commonly used data types DO NOT include:",
+      choices: ["strings", "booleans", "alerts", "numbers"],
+      answer: 3
+    },
+    
+    {
+      question: "The condition in an if/else statement is enclosed within ____.",
+      choices: ["quotes", "curly brackets", "parenthesis", "square brackets"],
+      answer: 2
+    },
+    
+    {
+      question: "Arrays in javascript can be used to store ______.",
+      choices: ["numbers and strings", "other arrays", "booleans", "All of the above"],
+      answer: 4
+    },
+    
+    {
+      question: "String values must be enclosed within _____ when being assigned to variables",
+      choices: ["commas", "curly brackets", "quotes", "parentheses"],
+      answer: 3
+    },
+    
+    {
+      question: "A very useful tool used during development and debugging for printing content to the debugger is: ",
+      choices: ["Javascript", "Terminal/bash", "for loops", "console log"],
+      answer: 4
+    },
+    
+  ];
