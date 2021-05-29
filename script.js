@@ -13,59 +13,65 @@
 // WHEN the game is over
 // THEN I can save my initials and my score
 
-var startbutton = document.querySelector("#start");
+var time = questions.length * 10;
+var timer;
+var qIndex = 0;
 
-startbutton.addEventListener("click", function() {
-    timeStart();
-    questions();
-  });
+var startBtn = document.getElementById("start-btn");
+var timeEl = document.getElementById("time");
+var questionEl = document.getElementById("question");
+var getchoicesEl = document.getElementById("choices");
 
-
-function timeStart(){
-  var counter = 5;
-  setInterval(function() {
-    counter--;
-    if (counter >= 0) {
-      p = document.getElementById("timer");
-      p.innerHTML = counter;
+function startQuiz() {
+  timer = setInterval( function() {
+    time--;
+    timeEl.textContent = time;
+    if(time === 0){
+      endQuiz();
     }
-    if (counter === 0) {
-        p.innerHTML = "sorry out of time";
-        clearInterval(counter);
-    }
-  }, 1000);
+  }, 
+      1000);
+      showQuestion();
+};
+
+function endQuiz(){
+  clearInterval(timer);
 }
 
-var quizbox=
-  [
-    {
-      question: "Commonly used data types DO NOT include:",
-      choices: ["strings", "booleans", "alerts", "numbers"],
-      answer: 3
-    },
-    
-    {
-      question: "The condition in an if/else statement is enclosed within ____.",
-      choices: ["quotes", "curly brackets", "parenthesis", "square brackets"],
-      answer: 2
-    },
-    
-    {
-      question: "Arrays in javascript can be used to store ______.",
-      choices: ["numbers and strings", "other arrays", "booleans", "All of the above"],
-      answer: 4
-    },
-    
-    {
-      question: "String values must be enclosed within _____ when being assigned to variables",
-      choices: ["commas", "curly brackets", "quotes", "parentheses"],
-      answer: 3
-    },
-    
-    {
-      question: "A very useful tool used during development and debugging for printing content to the debugger is: ",
-      choices: ["Javascript", "Terminal/bash", "for loops", "console log"],
-      answer: 4
-    },
-    
-  ];
+function showQuestion(){
+  var currentQuestion = questions[qIndex];
+  questionEl.textContent = currentQuestion.title;
+  choicesEl.innerHTML = "";
+  var buttons = [];
+  for(var i = 0; i < currentQuestions.choices.length; i++){
+    var choice = currentQuestion.choices[i];
+    var newBtn = document.createElement("button");
+    newBtn.textContent = choice;
+    choicesEl.appendChild(newBtn);
+    newBtn.onClick = choiceClick;
+  }
+
+}
+
+function choiceClick(event){
+  if(qIndex >=  questions.length){
+    //endquiz()
+    //showScores();
+  }
+  else{
+      var currentQuestions = question[qIndex];
+      var choiceClick = event.target.textContent;
+      if(choiceClick===currentQuestions.answer.toLowerCase()){
+        console.log("Right!");
+      }
+      else{
+        console.log("wrong!");
+        time -= 5;
+      }
+      qIndex++;
+      showQuestion();
+    }
+};
+
+
+startBtn.onclick = startQuiz;
