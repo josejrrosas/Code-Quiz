@@ -4,30 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Quiz</title>
+    <title>CODE QUIZ</title>
 </head>
 <body>
-    <section>
-        <a id="highscores" href="#">View Highscores</a>
-    </section>
-
-    <section>
-        <p id="timer"></p>
-    </section>
-
-    <main id="quiz-box">
-        <h1 id="questions"></h1>
-        <ol id = "answers">
-            <li><button id="choice-1"></button></li>
-            <li><button id="choice-2"></button></li>
-            <li><button id="choice-3"></button></li>
-            <li><button id="choice-4"></button></li>
-        </ol>
-        <button id ="start"></button>
-
-        
-    </main>
-    
+    <div id ="timer">
+        <h5>Time: <span id ="time"></span></h5>
+        <button id = "start-btn">Start</button>
+        <div id="question-area">
+            <h2 id="question"></h2>
+            <div id="choices"></div>
+        </div>
+    </div>
+    <script src="questions.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
