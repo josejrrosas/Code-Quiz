@@ -1,0 +1,17 @@
+body{
+    background: rgb(143, 143, 240);
+}
+
+#question-area{
+    background-color: blanchedalmond;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+}
+
+.card{
+    background-color: burlywood;
+    text-align: center;
+}

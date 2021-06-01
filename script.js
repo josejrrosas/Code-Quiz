@@ -13,7 +13,7 @@
 // WHEN the game is over
 // THEN I can save my initials and my score
 
-var time = questions.length * 10;
+var time = questions.length * 10 +1;
 var timer;
 var qIndex = 0;
 
@@ -22,8 +22,6 @@ var timeEl = document.getElementById("time");
 var questionEl = document.getElementById("question");
 var choicesEl = document.getElementById("choices");
 var resultEl = document.getElementById("result");
-var initialsEl = document.getElementById("initials");
-var initEl = document.getElementById("enterInit");
 
 document.querySelector(".card").hidden = true;
 
@@ -43,6 +41,7 @@ function startQuiz() {
 
 function endQuiz() {
   clearInterval(timer);
+
 }
 
 
@@ -56,6 +55,7 @@ function showQuestion() {
     var newBtn = document.createElement("button");
     newBtn.textContent = choice;
     choicesEl.appendChild(newBtn);
+    newBtn.setAttribute("style", "margin:10px; text-align:center;");
     newBtn.onclick = choiceClick;
   }
 
@@ -72,10 +72,11 @@ function choiceClick(event) {
     var currentQuestions = questions[qIndex];
     var choiceClick = event.target.textContent;
     if (choiceClick === currentQuestions.answer) {
-      resultEl.textContent = "Right!";
+      resultEl.textContent = "Right! +1 second!";
+      time += 1;
     }
     else {
-      resultEl.textContent = "Wrong!";
+      resultEl.textContent = "Wrong! -5 seconds.";
       time -= 5;
     }
     qIndex++;
@@ -88,25 +89,11 @@ function choiceClick(event) {
 //show title "all done!" 
 // as a paragraph  "your final score is ____"
 //enter initials with submit button sending initials and score to highscore 
-
 function showScores() {
   var score = time;
-  // var inpEl = document.createElement("input");
-  // var submitBtnEl = document.createElement("button");
-
-  // initialsEl.appendChild(inpEl);
-  // initialsEl.appendChild(submitBtnEl);
-
-  // submitBtnEl.setAttribute("type" , "submit");
-  // inpEl.setAttribute("type" , "text");
-  // inpEl.setAttribute("style" , "margin:5px");
-
   questionEl.textContent = "All done!";
   choicesEl.textContent = "Youre final score is " + score + ".";
   resultEl.textContent = "";
-  // initEl.textContent = "Please enter your initials: ";
-  // submitBtnEl.textContent = "Submit";
-
   localStore();
 
 }
@@ -116,7 +103,12 @@ function localStore() {
   var initForm = document.querySelector("#initials-form");
   var highscoreList = document.querySelector("#highscore-list");
 
-  var highscores = [];
+  var highscores = [
+    {
+      name: [],
+      score: time
+    }
+  ];
 
   // The following function renders items in a highscore list as <li> elements
   function renderHighscores() {
@@ -132,9 +124,9 @@ function localStore() {
       li.setAttribute("data-index", i);
 
       var button = document.createElement("button");
-      button.textContent = "remove";
+      button.setAttribute("style", "margin:10px;");
+      button.textContent = "";
 
-      li.appendChild(button);
       highscoreList.appendChild(li);
     }
   }
@@ -161,37 +153,25 @@ function localStore() {
   // Add submit event to form
   initForm.addEventListener("submit", function (event) {
     event.preventDefault();
-
+    document.querySelector("#initials-form").hidden = true;
     var initText = initInput.value.trim();
+    
 
-    // Return from function early if submitted highscoreText is blank
+
+    // Return from function early if submitted initText is blank
     if (initText === "") {
       return;
     }
 
-    // Add new highscoreText to highscores array, clear the input
-    highscores.push(initText);
+    // Add new initText to highscores array, clear the input
+    var score = time;
+    highscores.push([initText, score]);
     initInput.value = "";
+    highscores.splice(10);
 
     // Store updated highscores in localStorage, re-render the list
     storeHighscores();
     renderHighscores();
-  });
-
-  // Add click event to highscoreList element
-  highscoreList.addEventListener("click", function (event) {
-    var element = event.target;
-
-    // Checks if element is a button
-    if (element.matches("button") === true) {
-      // Get its data-index value and remove the highscore element from the list
-      var index = element.parentElement.getAttribute("data-index");
-      highscores.splice(index, 1);
-
-      // Store updated highscores in localStorage, re-render the list
-      storeHighscores();
-      renderHighscores();
-    }
   });
 
   // Calls init to retrieve data and render it to the page on load
