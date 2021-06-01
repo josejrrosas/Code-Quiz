@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +8,30 @@
     <link rel="stylesheet" href="style.css">
     <title>CODE QUIZ</title>
 </head>
+
 <body>
-    <div id ="timer">
-        <h5>Time: <span id ="time"></span></h5>
-        <button id = "start-btn">Start</button>
+    <div id="timer">
+        <h2>Time: <span id="time"></span></h2>
+
+        <button id="start-btn">Start</button>
         <div id="question-area">
             <h2 id="question"></h2>
             <div id="choices"></div>
             <p id="result"></p>
-            <form action="#" id="initials">
-                <p id="enterInit"></p>
-            </form>
         </div>
-    </div>
+
+        <div class="card">
+            <h3>High Scores</h3>
+            <form id="initials-form" method="POST">
+              <label for="initials-text">Add your initials: </label>
+              <input type="text" placeholder="initials" name="initials-text" id="initials-text" />
+            </form>
+            <ul id="highscore-list"></ul>
+        
+        </div>
+
     <script src="questions.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
