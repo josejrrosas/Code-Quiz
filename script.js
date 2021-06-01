@@ -1,5 +1,5 @@
 // AS A coding boot camp student
-// I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
+// I WANT to take a timed quiz on JavaScript fundamentals that stores high scores 
 // SO THAT I can gauge my progress compared to my peers
 // GIVEN I am taking a code quiz
 // WHEN I click the start button
@@ -20,9 +20,13 @@ var qIndex = 0;
 var startBtn = document.getElementById("start-btn");
 var timeEl = document.getElementById("time");
 var questionEl = document.getElementById("question");
-var getchoicesEl = document.getElementById("choices");
+var choicesEl = document.getElementById("choices");
+var resultEl = document.getElementById("result");
+var initialsEl = document.getElementById("initials");
+var initEl = document.getElementById("enterInit");
 
 function startQuiz() {
+  document.querySelector("#start-btn").hidden = true;
   timer = setInterval( function() {
     time--;
     timeEl.textContent = time;
@@ -34,38 +38,41 @@ function startQuiz() {
       showQuestion();
 };
 
+
 function endQuiz(){
   clearInterval(timer);
 }
+
 
 function showQuestion(){
   var currentQuestion = questions[qIndex];
   questionEl.textContent = currentQuestion.title;
   choicesEl.innerHTML = "";
   var buttons = [];
-  for(var i = 0; i < currentQuestions.choices.length; i++){
+  for(var i = 0; i < currentQuestion.choices.length; i++){
     var choice = currentQuestion.choices[i];
     var newBtn = document.createElement("button");
     newBtn.textContent = choice;
     choicesEl.appendChild(newBtn);
-    newBtn.onClick = choiceClick;
+    newBtn.onclick = choiceClick;
   }
 
 }
 
+
 function choiceClick(event){
-  if(qIndex >=  questions.length){
-    //endquiz()
-    //showScores();
+  if(qIndex >=  questions.length || time == 0 ){
+    endQuiz();
+    showScores();
   }
   else{
-      var currentQuestions = question[qIndex];
+      var currentQuestions = questions[qIndex];
       var choiceClick = event.target.textContent;
-      if(choiceClick===currentQuestions.answer.toLowerCase()){
-        console.log("Right!");
+      if(choiceClick===currentQuestions.answer){
+        resultEl.textContent = "Right!";
       }
       else{
-        console.log("wrong!");
+        resultEl.textContent = "Wrong!";
         time -= 5;
       }
       qIndex++;
@@ -73,5 +80,27 @@ function choiceClick(event){
     }
 };
 
+function showScores(){
+  //score is time left over so get time when get is over
+  //show title "all done!" 
+  // as a paragraph  "your final score is ____"
+  //enter initials with submit button sending initials and score to highscore 
+  var score = time;
+  var inpEl = document.createElement("input");
+  var submitBtnEl = document.createElement("button");
+
+  initialsEl.appendChild(inpEl);
+  initialsEl.appendChild(submitBtnEl);
+
+  inpEl.setAttribute("type" , "text");
+  inpEl.setAttribute("style" , "margin:5px");
+  
+  questionEl.textContent = "All done!";
+  choicesEl.textContent = "Youre final score is " + score + ".";
+  resultEl.textContent = "";
+  initEl.textContent = "Please enter your initials: ";
+  submitBtnEl.textContent = "Submit";
+  
+}
 
 startBtn.onclick = startQuiz;
