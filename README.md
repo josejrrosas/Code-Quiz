@@ -17,7 +17,7 @@
   ## Website:
   Deployed Site here: https://josejrrosas.github.io/Code-Quiz/
   
-![Password Generator](images/screenshot.png)
+![Code Quiz](assets/images/pagepic.png)
 
   
   ## Languages-Used:
