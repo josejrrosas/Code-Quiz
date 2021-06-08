@@ -165,7 +165,7 @@ function localStore() {
 
     // Add new initText to highscores array, clear the input
     var score = time;
-    highscores.push([initText, score]);
+    highscores.push(['Initials: ' + initText + ' ','  Score: ' + score ]);
     initInput.value = "";
     highscores.splice(10);
 
