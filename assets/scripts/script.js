@@ -92,7 +92,7 @@ function choiceClick(event) {
 function showScores() {
   var score = time;
   questionEl.textContent = "All done!";
-  choicesEl.textContent = "Youre final score is " + score + ".";
+  choicesEl.textContent = "Your final score is " + score + ".";
   resultEl.textContent = "";
   localStore();
 
@@ -116,7 +116,7 @@ function localStore() {
     highscoreList.innerHTML = "";
 
     // Render a new li for each highscore
-    for (var i = 0; i < highscores.length; i++) {
+    for (var i = 1; i <= highscores.length; i++) {
       var highscore = highscores[i];
 
       var li = document.createElement("li");
